@@ -1,50 +1,36 @@
 import React, { useState } from 'react'
+import SearchBar from "./SearchBar"
+import Loading from "./Loading"
 import { StyleSheet, View, Text, TextInput, Button, Modal, ActivityIndicator } from 'react-native'
 
-const Loading = (props) => {
-    const [modalVisible, setModalVisible] = useState(false);
-    if (!modalVisible) {
-        return null;
-      }
-
-    return (
-        <>
-            <Modal>
-                <View style={{ flex:1,backgroundColor:"#00000020", justifyContent:"center",alignItems:"center"}}>
-                        <View style={{backgroundColor:"white",padding:10,borderRadius:5, width:"80%", alignItems:"center"}}>
-                            <Text style={styles.progressHeader}>Loading...</Text>
-                            <ActivityIndicator size="large" color="#f35588"/>
-                         </View>
-                     </View>
-            </Modal>
-        </>
-    );
-
-}
 
 export default function App() {
 
-
+  const onPressButton = () => {
+    alert('You pressed the button!')
+  }
+  
   return (
-  <>
-   <Loading />
-
     <View style={styles.container}>
-      <Text style={styles.dummyText}>My first React Native App</Text>
-    </View>
-    <TextInput style={styles.textInput} defaultValue="You can type in me"></TextInput>
-     <Button
-        title='Click here!'
+      <Loading />
+
+      <View>
+        <Text style={styles.dummyText}>Pizza Search</Text>
+      </View>
+      <SearchBar />
+      <Button
+        onPress={onPressButton}
+        title="Press Me"
         color="#841584"
-        accessibilityLabel="purple button"
       />
-  </>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    top: '40%',
+    height: "100%",
+    backgroundColor: "pink",
   },
   dummyText: {
     color: 'green',
@@ -53,8 +39,8 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   textInput: {
-       borderColor: 'gray',
-       height: 40,
-       borderWidth: 1
-   }
+    borderColor: 'gray',
+    height: 40,
+    borderWidth: 1
+  }
 });
