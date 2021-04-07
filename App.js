@@ -8,7 +8,7 @@ import { StyleSheet, View, Text, TextInput, Button, Modal, ActivityIndicator, Fl
 
 
 export default function App() {
-
+  const [isLoading, setLoading] = useState(true);
   const [plants, setPlants] = useState({});
   const [error, setError] = useState(null);
   const [search, setSearch] = useState("");
@@ -18,6 +18,7 @@ export default function App() {
 
     const getPlants = async () => {
       try {
+        setLoading(true)
         const URL = `https://trefle.io/api/v1/plants/search?token=${API_KEY}&q=${query}`;
         const response = await fetch(URL, {
           mode: "cors"
@@ -28,11 +29,14 @@ export default function App() {
         console.log("response done, let's read the json" + data)
         //console.log("that data stringified" + stringifiedData);
         setPlants(data.data);
-        console.log(data.data[0].id + data.data[0].common_name)
+        //console.log(data.data[0].id + data.data[0].common_name)
       } catch (error) {
         setError(error);
         console.log("it is broken");
         console.error(error.message);
+      } finally {
+        console.log("reached finally")
+        setLoading(false)
       }
     };
 
@@ -40,10 +44,10 @@ export default function App() {
     console.log("effect has been run");
   }, [query]);
 
-  const updateSearch = event => {
+  /* const updateSearch = event => {
     setSearch(event.target.value);
     console.log(search);
-  };
+  }; */
 
   const getSearch = event => {
     event.preventDefault();
@@ -52,29 +56,32 @@ export default function App() {
   };
 
   if (error) {
-    return <View style={{ color: "red" }}>{error.message}</View>;
+    return <Text style={{ color: "red" }}>{error.message}</Text>;
   }
 
   return (
     <View style={styles.container}>
-      <Loading />
-
-      <View>
-        <Text style={styles.dummyText}>Plant Search</Text>
-      </View>
 
       <TextInput
         style={{ height: 80 }}
         placeholder="Search plants..."
         onChangeText={search => setSearch(search)}
         defaultValue={search}
+        onSubmitEditing={getSearch}
       />
       <Button
+        color="green"
         onPress={getSearch}
         title="Search"
       />
-
-      <FlatList
+      {isLoading ? <Loading/> : (
+        <FlatList
+        ListEmptyComponent={
+          <View style={styles.errorCard}>
+            <Text style={styles.errorCard_heading}>NO RESULTS :-/</Text>
+          </View>
+          
+        }
         data={plants}
         keyExtractor={({ id }, index) => id}
         renderItem={({ item: plant }) => (
@@ -84,9 +91,11 @@ export default function App() {
             <Image style={styles.plantIMG}
               source={{ uri: plant.image_url }} />
           </View>
-        )}
-      >
+        )}>
       </FlatList>
+      )
+      }
+      
 
     </View>
   )
@@ -119,8 +128,6 @@ const styles = StyleSheet.create({
     padding: 5,
     backgroundColor: "#ecf0f1",
     height: 200,
-    shadowOpacity: 1,
-
   },
   plantCard_heading: {
     color: 'green',
@@ -139,4 +146,16 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
   },
+  errorCard: {
+    height: 400,
+    justifyContent: 'center',
+    alignContent: 'center',
+    backgroundColor: "#F5FCFF",
+  },
+  errorCard_heading: {
+    color: 'black',
+    fontSize: 50,
+    textAlign: 'center'
+  },
+
 });
