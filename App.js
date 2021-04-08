@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import SearchBar from "./SearchBar"
-import PlantCard from "./PlantCard"
-import Loading from "./Loading"
+import SearchBar from "./components/SearchBar"
+import PlantCard from "./components/PlantCard"
+import Loading from "./components/Loading"
 import { API_KEY } from '@env'
 import axios from 'axios';
 import { StyleSheet, View, Text, TextInput, Button, Modal, ActivityIndicator, FlatList, Image } from 'react-native'
