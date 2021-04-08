@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import SearchBar from "./components/SearchBar"
 import PlantCard from "./components/PlantCard"
+import ErrorCard from "./components/ErrorCard"
 import Loading from "./components/Loading"
 import { API_KEY } from '@env'
 import axios from 'axios';
@@ -61,9 +62,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-
-      <TextInput
-        style={{ height: 80 }}
+      <SearchBar 
         placeholder="Search plants..."
         onChangeText={search => setSearch(search)}
         defaultValue={search}
@@ -76,12 +75,7 @@ export default function App() {
       />
       {isLoading ? <Loading/> : (
         <FlatList
-        ListEmptyComponent={
-          <View style={styles.errorCard}>
-            <Text style={styles.errorCard_heading}>NO RESULTS :-/</Text>
-          </View>
-          
-        }
+        ListEmptyComponent={<ErrorCard />}
         data={plants}
         keyExtractor={({ id }, index) => id}
         renderItem={({ item: plant }) => (
@@ -145,17 +139,6 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     width: 100,
     height: 100,
-  },
-  errorCard: {
-    height: 400,
-    justifyContent: 'center',
-    alignContent: 'center',
-    backgroundColor: "#F5FCFF",
-  },
-  errorCard_heading: {
-    color: 'black',
-    fontSize: 50,
-    textAlign: 'center'
   },
 
 });

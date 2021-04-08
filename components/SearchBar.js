@@ -1,21 +1,23 @@
-import React, { useState } from 'react';
-import { Text, TextInput, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, TextInput } from 'react-native';
 
-const SearchBar = () => {
-  const [text, setText] = useState('');
+export default function SearchBar(props){
   return (
-    <View style={{padding: 10}}>
-      <TextInput
-        style={{height: 40}}
-        placeholder="Type here to translate!"
-        onChangeText={text => setText(text)}
-        defaultValue={text}
-      />
-      <Text style={{padding: 10, fontSize: 42}}>
-        {text.split(' ').map((word) => word && '🍕').join(' ')}
-      </Text>
-    </View>
+    <>
+    <TextInput
+        style={styles.searchBar}
+        placeholder={props.placeholder}
+        onChangeText={props.onChangeText}
+        defaultValue={props.defaultValue}
+        onSubmitEditing={props.onSubmitEditing}
+      /> 
+    </>
+      
   );
 }
 
-export default SearchBar;
+const styles = StyleSheet.create({
+  searchBar: {
+    height: 80,
+  }
+})
