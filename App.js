@@ -62,7 +62,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <SearchBar 
+      <SearchBar
         placeholder="Search plants..."
         onChangeText={search => setSearch(search)}
         defaultValue={search}
@@ -73,23 +73,31 @@ export default function App() {
         onPress={getSearch}
         title="Search"
       />
-      {isLoading ? <Loading/> : (
+      {isLoading ? <Loading /> : (
         <FlatList
-        ListEmptyComponent={<ErrorCard />}
-        data={plants}
-        keyExtractor={({ id }, index) => id}
-        renderItem={({ item: plant }) => (
-          <View style={styles.card}>
-            <Text style={styles.plantCard_heading}>{plant.common_name}</Text>
-            <Text style={styles.plantCard_subheading}>{plant.scientific_name}</Text>
-            <Image style={styles.plantIMG}
-              source={{ uri: plant.image_url }} />
-          </View>
-        )}>
-      </FlatList>
+          ListEmptyComponent={<ErrorCard />}
+          data={plants}
+          keyExtractor={({ id }, index) => id}
+          renderItem={({ item: plant }) => (
+            <>
+              <PlantCard
+                heading={plant.common_name}
+                subheading={plant.scientific_name}
+                source={{ uri: plant.image_url }}
+              />
+            {/* <View style={styles.card}>
+              <Text style={styles.plantCard_heading}>{plant.common_name}</Text>
+              <Text style={styles.plantCard_subheading}>{plant.scientific_name}</Text>
+              <Image style={styles.plantIMG}
+                source={{ uri: plant.image_url }} />
+            </View> */}
+            </>
+            
+          )}>
+        </FlatList>
       )
       }
-      
+
 
     </View>
   )

@@ -1,12 +1,13 @@
 import React from 'react'
 import { StyleSheet, View, Text, Image } from 'react-native'
 
-const PlantCard = ({ title, name, image }) => {
+const PlantCard = (props) => {
     return (
         <View style={styles.card}>
-            <Text style={styles.text}>{title}</Text>
-            <Text style={styles.text}>{name}</Text>
-            {/* <Image style={styles.image} source={image} /> */}
+            <Text style={styles.plantCard_heading}>{props.heading}</Text>
+            <Text style={styles.plantCard_subheading}>{props.scientific_name}</Text>
+            <Image style={styles.plantIMG}
+                source={props.source} />
         </View>
     );
 };
