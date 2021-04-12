@@ -5,7 +5,7 @@ const PlantCard = (props) => {
     return (
         <View style={styles.card}>
             <Text style={styles.plantCard_heading}>{props.heading}</Text>
-            <Text style={styles.plantCard_subheading}>{props.scientific_name}</Text>
+            <Text style={styles.plantCard_subheading}>{props.subheading}</Text>
             <Image style={styles.plantIMG}
                 source={props.source} />
         </View>
@@ -18,24 +18,27 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 10,
         borderTopRightRadius: 10,
         borderTopLeftRadius: 10,
-        margin: "20px",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-around",
-        backgroundColor: "white",
-        alignItems: "center",
-        minWidth: "40%",
+        margin: 15,
+        padding: 5,
+        backgroundColor: "#ecf0f1",
+        height: 200,
     },
-    image: {
+    plantCard_heading: {
+        color: 'green',
+        fontWeight: 'bold',
+        fontSize: 30,
+    },
+    plantCard_subheading: {
+        color: 'black',
+        fontStyle: 'italic',
+        fontSize: 24,
+    },
+    plantIMG: {
+        top: 10,
+        alignSelf: 'center',
         borderRadius: 50,
-        width: "auto",
-        height: "auto",
-        padding: "5px",
-    },
-    text: {
-        paddingLeft: "2vw",
-        marginBottom: 0,
-        alignSelf: "flex-start",
+        width: 100,
+        height: 100,
     },
 });
 

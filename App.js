@@ -79,20 +79,15 @@ export default function App() {
           data={plants}
           keyExtractor={({ id }, index) => id}
           renderItem={({ item: plant }) => (
-            <>
-              <PlantCard
-                heading={plant.common_name}
-                subheading={plant.scientific_name}
-                source={{ uri: plant.image_url }}
-              />
-            {/* <View style={styles.card}>
-              <Text style={styles.plantCard_heading}>{plant.common_name}</Text>
-              <Text style={styles.plantCard_subheading}>{plant.scientific_name}</Text>
-              <Image style={styles.plantIMG}
-                source={{ uri: plant.image_url }} />
-            </View> */}
-            </>
-            
+
+            <PlantCard
+              heading={plant.common_name}
+              subheading={plant.scientific_name}
+              source={{ uri: plant.image_url }}
+            />
+
+
+
           )}>
         </FlatList>
       )
@@ -120,33 +115,6 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     height: 40,
     borderWidth: 1
-  },
-  card: {
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
-    borderTopRightRadius: 10,
-    borderTopLeftRadius: 10,
-    margin: 15,
-    padding: 5,
-    backgroundColor: "#ecf0f1",
-    height: 200,
-  },
-  plantCard_heading: {
-    color: 'green',
-    fontWeight: 'bold',
-    fontSize: 30,
-  },
-  plantCard_subheading: {
-    color: 'black',
-    fontStyle: 'italic',
-    fontSize: 24,
-  },
-  plantIMG: {
-    top: 10,
-    alignSelf: 'center',
-    borderRadius: 50,
-    width: 100,
-    height: 100,
   },
 
 });
