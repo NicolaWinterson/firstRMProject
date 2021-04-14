@@ -1,14 +1,16 @@
 import React from 'react'
-import { StyleSheet, View, Text, Image } from 'react-native'
+import { StyleSheet, View, Text, Image, TouchableOpacity, Pressable  } from 'react-native'
 
 const PlantCard = (props) => {
     return (
-        <View style={styles.card}>
+        <Pressable  style={styles.card}
+        onPress={props.onPress}
+        >
             <Text style={styles.plantCard_heading}>{props.heading}</Text>
             <Text style={styles.plantCard_subheading}>{props.subheading}</Text>
             <Image style={styles.plantIMG}
                 source={props.source} />
-        </View>
+        </Pressable >
     );
 };
 

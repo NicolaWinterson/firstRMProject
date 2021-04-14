@@ -5,7 +5,7 @@ import ErrorCard from "./components/ErrorCard"
 import Loading from "./components/Loading"
 import { API_KEY } from '@env'
 import axios from 'axios';
-import { StyleSheet, View, Text, TextInput, Button, Modal, ActivityIndicator, FlatList, Image } from 'react-native'
+import { StyleSheet, View, Text, TextInput, Button, Modal, ActivityIndicator, FlatList, Image, Alert } from 'react-native'
 
 
 export default function App() {
@@ -60,6 +60,15 @@ export default function App() {
     return <Text style={{ color: "red" }}>{error.message}</Text>;
   }
 
+  const showAlert = () =>
+    Alert.alert(
+      {
+        text: "Cancel",
+        onPress: () => Alert.alert("Cancel Pressed"),
+        style: "cancel",
+      },
+    );
+
   return (
     <View style={styles.container}>
       <SearchBar
@@ -79,15 +88,14 @@ export default function App() {
           data={plants}
           keyExtractor={({ id }, index) => id}
           renderItem={({ item: plant }) => (
-
             <PlantCard
+              onPress={() =>
+                Alert.alert('You clicked!', 'Clicked on View' + ` ${plant.common_name}`)
+              }
               heading={plant.common_name}
               subheading={plant.scientific_name}
               source={{ uri: plant.image_url }}
             />
-
-
-
           )}>
         </FlatList>
       )
